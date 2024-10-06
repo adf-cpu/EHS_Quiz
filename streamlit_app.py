@@ -5,6 +5,9 @@ import random
 from datetime import datetime, timedelta
 import time
 import threading
+import cloudinary
+import cloudinary.uploader
+import os
 # Function to save results to Excel
 #st.image("Huawei.jpg", width=200)
 # Use Streamlit's image function
