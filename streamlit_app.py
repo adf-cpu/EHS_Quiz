@@ -615,7 +615,6 @@ else:
     # Navigation buttons
     col1, col2 = st.columns(2)
 
-
     # Only show navigation buttons if the quiz hasn't been submitted
     if not st.session_state.quiz_submitted:
         if st.session_state.current_question > 0:
@@ -719,8 +718,7 @@ else:
 
         question_number = st.session_state.current_question + 1 
         progress_percentage = question_number / total_questions
-        # Display question count and progress bar
-        st.write(f"**Question {question_number} of {total_questions}**")  # Question count
+
         st.progress(progress_percentage)
 
         st.markdown(f"<div class='question-card'><h4>Question {question_number}: {current_question['question']}</h4></div>", unsafe_allow_html=True)
