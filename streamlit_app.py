@@ -76,8 +76,17 @@ if 'quiz_submitted' not in st.session_state:
 if 'flattened_questions' not in st.session_state:
     st.session_state.flattened_questions = []
     ########
-if 'start_time' not in st.session_state:
-    st.session_state.start_time = None
+# List of allowed usernames
+allowed_usernames = {
+    "safaa_asadmurad",
+    "safaa_ashfaq",
+    "nk_adnanali12",
+    "nk_waseem11",
+    "ies_zaheer03",
+    "ies_hamzashafique",
+    "safaa_mansar"
+}
+
 # Define your questions
 EHS = {
     "true_false": [
@@ -577,10 +586,10 @@ if len(st.session_state.answers) != len(st.session_state.flattened_questions):
 if not st.session_state.logged_in:
     st.header("Welcome to Huawei Quiz Portal")
     username = st.text_input("Username")
-    password = st.text_input("Password", type="password")
+    password = st.text_input("Password", type="password")  # You might want to handle password validation separately
 
     if st.button("Login"):
-        if username and password:
+        if username in allowed_usernames and password:  # Add password validation as needed
             st.session_state.logged_in = True
             st.session_state.username = username
             st.session_state.start_time = datetime.now()  # Track start time on login
@@ -589,7 +598,6 @@ if not st.session_state.logged_in:
         else:
             st.error("Please enter a valid username and password.")
 else:
-
     st.sidebar.markdown(f"## Welcome **{st.session_state.username}** For The Quiz Of EHS Assurance ")
     if st.sidebar.button("Logout"):
         st.session_state.logged_in = False
@@ -603,6 +611,7 @@ else:
 
     # Quiz Page
     st.header(f"Welcome {st.session_state.username} For The Quiz Of EHS Assurance")
+
     
     # Navigation buttons
     col1, col2 = st.columns(2)
