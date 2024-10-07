@@ -611,7 +611,7 @@ else:
 
     # Quiz Page
     st.header(f"Welcome {st.session_state.username} For The Quiz Of EHS Assurance")
-    
+
     # Navigation buttons
     col1, col2 = st.columns(2)
 
