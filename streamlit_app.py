@@ -611,10 +611,10 @@ else:
 
     # Quiz Page
     st.header(f"Welcome {st.session_state.username} For The Quiz Of EHS Assurance")
-
     
     # Navigation buttons
     col1, col2 = st.columns(2)
+
 
     # Only show navigation buttons if the quiz hasn't been submitted
     if not st.session_state.quiz_submitted:
