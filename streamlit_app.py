@@ -594,7 +594,8 @@ if not st.session_state.logged_in:
             st.session_state.username = username
             st.session_state.start_time = datetime.now()  # Track start time on login
             st.success("Logged in successfully!")
-            st.experimental_rerun()  # Refresh the page to reflect the new state
+            st.session_state.logged_in = True
+            st.experimental_set_query_params()  # Ensures the state is saved and reloaded without rerunning the entire script
         else:
             st.error("Please enter a valid username and password.")
 else:
@@ -607,9 +608,8 @@ else:
         st.session_state.quiz_submitted = False  # Reset quiz submission status
         st.session_state.flattened_questions = []  # Reset questions
         st.success("You have been logged out.")
-        #st.experimental_rerun()  # Refresh the page to reflect the new state
-        st.session_state.logged_in = True
-        st.experimental_set_query_params()  # Ensures the state is saved and reloaded without rerunning the entire script
+        st.experimental_rerun()  # Refresh the page to reflect the new state
+        
 
     # Quiz Page
     st.header(f"Welcome {st.session_state.username} For The Quiz Of EHS Assurance")
