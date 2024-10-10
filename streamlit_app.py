@@ -608,7 +608,7 @@ else:
         st.session_state.quiz_submitted = False  # Reset quiz submission status
         st.session_state.flattened_questions = []  # Reset questions
         st.success("You have been logged out.")
-        st.experimental_rerun()  # Refresh the page to reflect the new state
+        # st.experimental_rerun()  # Refresh the page to reflect the new state
         
 
     # Quiz Page
