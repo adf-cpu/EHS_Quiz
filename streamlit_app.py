@@ -718,9 +718,9 @@ else:
 
         question_number = st.session_state.current_question + 1 
         progress_percentage = question_number / total_questions
-
+        st.write(f"**Question {question_number} of {total_questions}**")  # Question count
         st.progress(progress_percentage)
-
+        
         st.markdown(f"<div class='question-card'><h4>Question {question_number}: {current_question['question']}</h4></div>", unsafe_allow_html=True)
 
         # Display options based on question type
