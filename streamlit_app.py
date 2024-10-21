@@ -60,7 +60,12 @@ def save_results(username, total_attempted, correct_answers, wrong_answers, tota
     if uploaded_url:
         st.success(f"Quiz results uploaded successfully!")
         # st.markdown(f"Access your file here: [quiz_results.xlsx]({uploaded_url})")
-
+hide_github_icon = """
+#GithubIcon {
+  visibility: hidden;
+}
+"""
+st.markdown(hide_github_icon, unsafe_allow_html=True)
 
 # Initialize session state
 if 'logged_in' not in st.session_state:
