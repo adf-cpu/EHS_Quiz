@@ -8,6 +8,17 @@ import threading
 import cloudinary
 import cloudinary.uploader
 import os
+st.markdown(
+    """
+    <style>
+    .st-emotion-cache-1huvf7z {
+        display: none; /* Hides the button */
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 # Function to save results to Excel
 #st.image("Huawei.jpg", width=200)
 # Use Streamlit's image function
