@@ -608,7 +608,7 @@ if not st.session_state.logged_in:
         else:
             st.error("Please enter a valid username and password.")
 else:
-    st.sidebar.markdown(f"## Welcome **{st.session_state.username}** For The Quiz Of Wireless ")
+    st.sidebar.markdown(f"## Welcome **{st.session_state.username}** For The Quiz Of EHS ")
     if st.sidebar.button("Logout"):
         st.session_state.logged_in = False
         st.session_state.current_question = 0  # Reset current question
@@ -620,7 +620,7 @@ else:
         # st.experimental_rerun()  # Refresh the page to reflect the new state
 
     # Quiz Page
-    st.header(f"Welcome {st.session_state.username} For The Quiz Of Wireless")
+    st.header(f"Welcome {st.session_state.username} For The Quiz Of EHS")
     
     # Navigation buttons
     col1, col2 = st.columns(2)
