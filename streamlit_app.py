@@ -58,16 +58,16 @@ def upload_to_cloudinary(file_path, public_id):
 # Function to save results to Excel
 def save_results(username, total_attempted, correct_answers, wrong_answers, total_score, time_taken, details):   
     try:
-        df = pd.read_excel("quiz_results_wireless.xlsx")
+        df = pd.read_excel("quiz_results_EHS.xlsx")
     except FileNotFoundError:
         df = pd.DataFrame(columns=["Username", "Date", "Total Attempted", "Correct Answers", "Wrong Answers", "Total Score", "Time Taken", "Details"])
 
     new_data = pd.DataFrame([[username, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), total_attempted, correct_answers, wrong_answers, total_score, time_taken, details]],
                             columns=["Username", "Date", "Total Attempted", "Correct Answers", "Wrong Answers", "Total Score", "Time Taken", "Details"])
     df = pd.concat([df, new_data], ignore_index=True)
-    df.to_excel("quiz_results_wireless.xlsx", index=False)
+    df.to_excel("quiz_results_EHS.xlsx", index=False)
        # Upload the file to Cloudinary
-    uploaded_url = upload_to_cloudinary("quiz_results_wireless.xlsx", "quiz_results_wireless")
+    uploaded_url = upload_to_cloudinary("quiz_results_EHS.xlsx", "quiz_results_EHS")
     if uploaded_url:
         st.success(f"Quiz results uploaded successfully!")
         # st.markdown(f"Access your file here: [quiz_results.xlsx]({uploaded_url})")
@@ -96,122 +96,474 @@ allowed_usernames = {
     
 }
 # Define your questions
-wireless= {
+EHS = {
     "true_false": [
-        {"question": "In 2G Base station is connected to RNC", "answer": "F"},
-        {"question": "4G has no BSC/RNC", "answer": "T"},
-        {"question": "RRU5909 consists of 4*60 Watt", "answer": "F"},
-        {"question": "In 3G Base station is connected to RNC", "answer": "T"},
-        {"question": "4T6S stands for 4T4R (MIMO) with 6-Sectors", "answer": "T"},
-        {"question": "DBS3900 system consists of BBU, RRU and Antennas", "answer": "T"},
-        {"question": "BBU3900 is 10 inches wide and 1 U high", "answer": "F"},
-        {"question": "RRU Installation Auxiliary Fiber, Power cables SFP", "answer": "T"},
-        {"question": "In 2G Base station is connected to BSC", "answer": "T"},
-        {"question": "The RRUs can be installed on the pole, on the wall and in the L-Rack and so on", "answer": "T"}
-        
+        {"question": "Persons working on electrical equipment must be authorized and competent.", "answer": "True"},
+        {"question": "It can be allowed to access Rooftops during bad weather, Roof is 'WET', Exists Thunder or Lightening.", "answer": "False"},
+        {"question": "In First Aid Kit, Mandatory Items are 10.", "answer": "False"},
+        {"question": "Hazards identification in advance is a must even if you are certified on EHS.", "answer": "True"},
+        {"question": "No live electrical work, which has the potential to cause electrical injury.", "answer": "False"},
+        {"question": "If a driver drives the car very slowly, there is no need to fasten the seatbelt.", "answer": "False"},
+        {"question": "No live-line working, which has the potential risk to cause electrical injury.", "answer": "True"},
+        {"question": "The purpose of deploying project EHS management is to ensure work safely, successful delivery of the project, and improve customer satisfaction.", "answer": "True"},
+        {"question": "Staff are responsible for complying with established procedures and instructions - including what to do in case of an emergency. They should only undertake tasks for which they are competent and authorized, and report any deviations from stated safe systems of work.", "answer": "True"},
+        {"question": "Only qualified first aiders are allowed to use first aid to rescue casualties. This is to prevent further complication to the injured.", "answer": "True"},
+        {"question": "If the firefighting system is not available on-site, we can still carry out our activities.", "answer": "False"},
+        {"question": "Better EHS management with a higher total cost reduces the project profit.", "answer": "False"},
+        {"question": "When workers find any damaged equipment or PPE, there is no need to report it to their site supervisor or line manager.", "answer": "False"},
+        {"question": "If no internet is working on-site, there is no need to get approval from a supervisor; the field team can carry out operations.", "answer": "False"},
+        {"question": "There is no need to fasten the safety belt when sitting in the backseat.", "answer": "False"},
+        {"question": "If you drive or operate machinery or work at heights, there is no need to tell your supervisor if you take medication that makes you drowsy or impairs your ability. Just have a rest and restart your work when you feel better.", "answer": "False"},
+        {"question": "The project team can request not to follow project EHS absolute rules when local resources are limited.", "answer": "False"},
+        {"question": "Individuals are responsible only for their own safety, with no need to take care of others.", "answer": "False"},
+        {"question": "Drivers should practice enough to use a hand-held phone while driving.", "answer": "False"},
+        {"question": "Office equipment, such as faxes, Dictaphones, notebooks, etc., must never be used by drivers whilst the vehicle is in motion.", "answer": "True"},
+        {"question": "The ladder used for safety work shall have no width limitation.", "answer": "True"},
+        {"question": "Site Engineers are responsible for engineering quality, with no need to audit EHS.", "answer": "False"},
+        {"question": "Only workers who have been trained and are competent can carry out safety work.", "answer": "True"},
+        {"question": "There is no width requirement for ladders used safely.", "answer": "False"},
+        {"question": "Casual shoes, sandals, or slippers are NOT allowed in the worksite.", "answer": "True"}
     ],
-    "single_choice": [
-            {
-        "question": "How many types of BBU Used in Wireless?",
-        "options": ["A) 4", "B) 2", "C) 1", "D) 3"],
-        "answer": "D) 3"
-    },
-    {
-        "question": "RRU Stands for",
-        "options": ["A) Radio frequency unit", "B) Radio Resource Unit", "C) Remote Radio Unit", "D) Radio Frequency Unit"],
-        "answer": "C) Remote Radio Unit"
-    },
-    {
-        "question": "In MM Which BBU model used.",
-        "options": ["A) BBU5900", "B) BBU3910", "C) BBU3900"],
-        "answer": "A) BBU5900"
-    },
-    {
-        "question": "In which slot UPEU Board can be install.",
-        "options": ["A) Slot 1", "B) Slot 16", "C) Slot 19", "D) Slot 2"],
-        "answer": "C) Slot 19"
-    },
-    {
-        "question": "In which slot UMPT Board can be install.",
-        "options": ["A) Slot 1", "B) Slot 7", "C) Slot 5", "D) Slot 2"],
-        "answer": "B) Slot 7"
-    },
-    {
-        "question": "BBU3900 is 19 inches wide and x U high.",
-        "options": ["A) 1", "B) 7", "C) 4", "D) 2"],
-        "answer": "D) 2"
-    },
-    {
-        "question": "BBU3900 is 19 inches wide and x U high.",
-        "options": ["A) 1", "B) 7", "C) 4", "D) 2"],
-        "answer": "D) 2"
-    },
-    {
-        "question": "BBU3900 is 19 inches wide and x U high.",
-        "options": ["A) 1", "B) 7", "C) 4", "D) 2"],
-        "answer": "D) 2"
-    },
-    {
-        "question": "RRU5909 Consist of",
-        "options": ["A) 2*60", "B) 2*70", "C) 2*40", "D) 2*50"],
-        "answer": "A) 2*60"
-    },
-    {
-        "question": "RRU5904 is 19 inches wide and x U high.",
-        "options": ["A) 2*60", "B) 4*60", "C) 2*40", "D) 2*50"],
-        "answer": "B) 4*60"
-    }
-        
-        
+    "choose_correct": [
+        {
+            "question": "The key tasks for Site Supervisor are:",
+            "options": [
+                "A) Carry out an onsite risk assessment",
+                "B) Ensure the rescue kit is on site and is suitable",
+                "C) All PPE and equipment is fit for purpose and used",
+                "D) Any exclusion zones (drop zones) are suitable"
+            ],
+            "answer": ["A", "B", "C", "D"]  # Correct answers
+        },
+        {
+            "question": "All work at height requires planning. A risk assessment must be carried out to identify:",
+            "options": [
+                "A) The significant rated hazards",
+                "B) The medium rated hazards",
+                "C) The low rated hazards",
+                "D) No hazards"
+            ],
+            "answer": ["A", "B", "C"]  # Correct answers
+        },
+        {
+            "question": "RF safety needs to be minded following:",
+            "options": [
+                "A) All RF related working need competent and certified person",
+                "B) Ensure to understand the safety area of antenna before approaching to antenna",
+                "C) Need to shut down power if must work in unsafe area of RF",
+                "D) Must not remove RF cable and connectors when they are running in order to avoid RF burst"
+            ],
+            "answer": ["A", "B", "C", "D"]  # Correct answers
+        },
+        {
+            "question": "The project EHS management requirement comes from:",
+            "options": [
+                "A) Local EHS-related laws and regulations, international standards",
+                "B) EHS-related clauses in the contract with the customer, customer’s requirements and expectations for EHS management",
+                "C) Huawei minimum safety standards and EHS management absolute rules",
+                "D) None of the above"
+            ],
+            "answer": ["A", "B", "C"]  # Correct answers
+        },
+        {
+            "question": "EHS 3P Self-Management includes:",
+            "options": [
+                "A) Prepare to work safely",
+                "B) Pre-Task Check",
+                "C) Performing Check",
+                "D) PPE Check"
+            ],
+            "answer": ["A", "B", "C"]  # Correct answers
+        },
+        {
+            "question": "Working at height, PPE shall include:",
+            "options": [
+                "A) Head protection",
+                "B) Foot protection",
+                "C) Full body harness",
+                "D) Eye protection"
+            ],
+            "answer": ["A", "B", "C", "D"]  # Correct answers
+        },
+        {
+            "question": "Working at the tower safely:",
+            "options": [
+                "A) Not allow one rigger to work on tower, a watchman must standby",
+                "B) Must check PPE and wear PPE per requirements",
+                "C) Ensure lanyard is fixed at 2 different points",
+                "D) Carried tools shall be kept in a bag to avoid being dropped down"
+            ],
+            "answer": ["A", "B", "C", "D"]  # Correct answers
+        },
+        {
+            "question": "Field working:",
+            "options": [
+                "A) Need to prepare enough food as it is not convenient for food outside",
+                "B) Normally need 2 or more workers to go to avoid being robbed or hurt by wild animals, take protection facility when needed, and avoid working late",
+                "C) Need to wear anti-skidding shoes and clothes fit to the body",
+                "D) None of the above"
+            ],
+            "answer": ["A", "B", "C"]  # Correct answers
+        },
+        {
+            "question": "Working safety needs consideration of local weather patterns, such as:",
+            "options": [
+                "A) Wind speeds",
+                "B) Temperature and temperature changes",
+                "C) Humidity levels",
+                "D) Snow/ice formation and type/frequency of rainfall"
+            ],
+            "answer": ["A", "B", "C", "D"]  # Correct answers
+        },
+        {
+            "question": "Before work, need to analyze the risk source and take necessary actions for prevention with PPE for:",
+            "options": [
+                "A) Getting an electric shock",
+                "B) Dropping from height",
+                "C) Being hit by dropping product",
+                "D) Traffic accidents"
+            ],
+            "answer": ["A", "B", "C", "D"]  # Correct answers
+        },
+        {
+            "question": "Unsafe acts that cause accidents and incidents include:",
+            "options": [
+                "A) Working without authority",
+                "B) Failure to warn others of danger",
+                "C) Using dangerous or wrong equipment",
+                "D) Horseplay"
+            ],
+            "answer": ["A", "B", "C", "D"]  # Correct answers
+        },
+        {
+            "question": "EHS objectives are:",
+            "options": [
+                "A) Zero Fatalities",
+                "B) Zero Injuries",
+                "C) Zero Accidents",
+                "D) Zero defects in the product"
+            ],
+            "answer": ["A", "B", "C"]  # Correct answers
+        },
+        {
+            "question": "Safety areas of engineering construction must have:",
+            "options": [
+                "A) Alert signs and fence facilities",
+                "B) Workers in unsafe areas need related protection (e.g., helmet, gloves, vest, eye protection glasses, and safety shoes) and necessary safety facilities and tools",
+                "C) Dangerous operations must be equipped with emergency response and safety protection approaches for worker safety",
+                "D) None of the above"
+            ],
+            "answer": ["A", "B", "C"]  # Correct answers
+        },
+        {
+            "question": "Risks to health and safety that may arise from radio frequency (RF) fields include:",
+            "options": [
+                "A) Interaction of RF fields with the human body",
+                "B) Interference with medical equipment",
+                "C) Interference with safety-related electronics",
+                "D) Fuel and flammable atmospheres"
+            ],
+            "answer": ["A", "B", "C", "D"]  # Correct answers
+        },
+        {
+            "question": "Managing EHS Risk includes:",
+            "options": [
+                "A) EHS Risk recognition",
+                "B) EHS Risk evaluation",
+                "C) EHS Risk control",
+                "D) EHS Risk monitoring"
+            ],
+            "answer": ["A", "B", "C", "D"]  # Correct answers
+        },
+        {
+            "question": "Safety Signs should include but not be limited to the following:",
+            "options": [
+                "A) No access to unauthorized persons",
+                "B) Safety Helmets must be worn",
+                "C) Working at height",
+                "D) None of the above"
+            ],
+            "answer": ["A", "B", "C"]  # Correct answers
+        },
+        {
+            "question": "EHS Check in project delivery includes:",
+            "options": [
+                "A) Subcontractor Self-check",
+                "B) Random Spot-check",
+                "C) No check",
+                "D) Leadership Safety Tour"
+            ],
+            "answer": ["A", "B", "D"]  # Correct answers
+        },
+        {
+            "question": "For electrical safety:",
+            "options": [
+                "A) Power cables are not allowed to be put on the ground",
+                "B) Overload for power cable is not allowed",
+                "C) Damaged components of power must be replaced in time",
+                "D) None of the above"
+            ],
+            "answer": ["A", "B", "C"]  # Correct answers
+        },
+        {
+            "question": "For vehicle seat belts, the correct answers are:",
+            "options": [
+                "A) All company vehicles fitted with seat belts",
+                "B) Seat belts checked as part of routine maintenance",
+                "C) Driver training includes the use of seat belts",
+                "D) None of the above"
+            ],
+            "answer": ["A", "B", "C"]  # Correct answers
+        },
+        {
+            "question": "Fitness to drive can be affected by a number of issues:",
+            "options": [
+                "A) Illness",
+                "B) Drug use",
+                "C) Alcohol consumption",
+                "D) Age"
+            ],
+            "answer": ["A", "B", "C", "D"]  # Correct answers
+        }
     ],
     "multiple_choice": [
         {
-        "question": "Antenna Types include",
-        "options": ["A) Single band", "B) Dual Band", "C) Tri-Band", "D) Quad band", "E) Penta band"],
-        "answer": ["A) Single band", "B) Dual Band", "C) Tri-Band", "D) Quad band", "E) Penta band"]
-    },
-    {
-        "question": "UBBP Board can be installed in BBU at",
-        "options": ["A) Slot 7", "B) Slot 1", "C) Slot 4", "D) Slot 3", "E) Slot 5", "F) Slot 2"],
-        "answer": ["B) Slot 1", "C) Slot 4", "D) Slot 3", "E) Slot 5", "F) Slot 2"]
-    },
-    {
-        "question": "UPEU Board can be installed in BBU at",
-        "options": ["A) Slot 18", "B) Slot 1", "C) Slot 4", "D) Slot 19", "E) Slot 5", "F) Slot 2"],
-        "answer": ["A) Slot 18", "D) Slot 19"]
-    },
-    {
-        "question": "DBS3900/5900 system consists of",
-        "options": ["A) BBU", "B) RRU", "C) Antenna", "D) RCU (Optional)"],
-        "answer": ["A) BBU", "B) RRU", "C) Antenna", "D) RCU (Optional)"]
-    },
-    {
-        "question": "HUAWEI Main Base Station",
-        "options": ["A) Indoor eNodeB BTS3900", "B) Outdoor eNodeB BTS3900", "C) Distributed eNodeB DBS3900"],
-        "answer": ["A) Indoor eNodeB BTS3900", "B) Outdoor eNodeB BTS3900", "C) Distributed eNodeB DBS3900"]
-    },
-    {
-        "question": "What are UBBP boards types",
-        "options": ["A) UBBPd5", "B) UBBPe2", "C) UBBPg", "D) UBBPj"],
-        "answer": ["A) UBBPd5", "B) UBBPe2", "C) UBBPg", "D) UBBPj"]
-    },
-    {
-        "question": "Below are BBU Boards",
-        "options": ["A) RRU", "B) UBBP", "C) UPEU", "D) UMPT"],
-        "answer": ["B) UBBP", "C) UPEU", "D) UMPT"]
-    },
-    {
-        "question": "BBU Installation scenarios",
-        "options": ["A) Indoor", "B) Outdoor", "C) Indoor on the wall"],
-        "answer": ["A) Indoor", "B) Outdoor", "C) Indoor on the wall"]
-    }
+            "question": "“E”, “H” & “S” inside of EHS represents the meanings of:",
+            "options": [
+                "A) E - Ear; H - Head; S - Safety",
+                "B) E - Earthquake; H - Height; S - Safety",
+                "C) E – Environment; H – Health; S - Safety",
+                "D) None of the above"
+            ],
+            "answer": "C) E – Environment; H – Health; S - Safety"  # Correct answer
+        },
+        {
+            "question": "What is the maximum temperature for working at height?",
+            "options": [
+                "A) 34°C",
+                "B) 40°C",
+                "C) 44°C",
+                "D) 45°C"
+            ],
+            "answer": "D) 45°C"  # Correct answer
+        },
+        {
+            "question": "The purpose of keeping the work site clear and tidy is:",
+            "options": [
+                "A) Comfortable for work",
+                "B) Any protruding nails can wound workers or bend them over",
+                "C) Meeting the requirements of EHS laws",
+                "D) None of the above"
+            ],
+            "answer": "B) Any protruding nails can wound workers or bend them over"  # Correct answer
+        },
+        {
+            "question": "Job Hazard Analysis been completed on First Aid Kit and Tower Rescue Kit includes:",
+            "options": [
+                "A) Emergency services phone numbers, location, and map",
+                "B) Home address",
+                "C) Office location",
+                "D) None of the above"
+            ],
+            "answer": "A) Emergency services phone numbers, location, and map"  # Correct answer
+        },
+        {
+            "question": "Project EHS Management is implemented in delivery project:",
+            "options": [
+                "A) Plan phase",
+                "B) Establish phase",
+                "C) Realize phase",
+                "D) Whole life cycle"
+            ],
+            "answer": "D) Whole life cycle"  # Correct answer
+        },
+        {
+            "question": "For working at height (unsafe zone):",
+            "options": [
+                "A) Allow worker to walk underneath",
+                "B) Allow worker to walk underneath if another watchman reminds of danger",
+                "C) Never allow worker to walk underneath",
+                "D) All of the above are wrong"
+            ],
+            "answer": "C) Never allow worker to walk underneath"  # Correct answer
+        },
+        {
+            "question": "The radius of the load drop zone equals ( ) the height of the load:",
+            "options": [
+                "A) 0.1",
+                "B) 0.3",
+                "C) 0.5",
+                "D) 0.8"
+            ],
+            "answer": "C) 0.5"  # Correct answer
+        },
+        {
+            "question": "In most countries, working at height is defined as:",
+            "options": [
+                "A) 1m or above",
+                "B) 3m or above",
+                "C) 5m or above",
+                "D) 2m or above"
+            ],
+            "answer": "C) 5m or above"  # Correct answer
+        },
+        {
+            "question": "Manual lifting: Pulling strength shall be:",
+            "options": [
+                "A) Not allow sudden pull, sudden stop",
+                "B) Allow sudden pull, sudden stop",
+                "C) If pulling strength is enough, allow sudden pull, sudden stop",
+                "D) None of the above"
+            ],
+            "answer": "A) Not allow sudden pull, sudden stop"  # Correct answer
+        },
+        {
+            "question": "The most important activity for EHS management is:",
+            "options": [
+                "A) Prevention",
+                "B) Corrective actions",
+                "C) Quick reactions",
+                "D) No response to accidents or incidents"
+            ],
+            "answer": "A) Prevention"  # Correct answer
+        },
+        {
+            "question": "If drivers choose to make or receive calls while driving, we strongly recommend that they use:",
+            "options": [
+                "A) A hand-held phone",
+                "B) A hands-free facility",
+                "C) No need to attend the call",
+                "D) None of the above"
+            ],
+            "answer": "B) A hands-free facility"  # Correct answer
+        },
+        {
+            "question": "Working at height needs to consider environmental conditions such as:",
+            "options": [
+                "A) 5S",
+                "B) Wind, Heat, Cold, and Lightness",
+                "C) Dirty or clean",
+                "D) Noise"
+            ],
+            "answer": "B) Wind, Heat, Cold, and Lightness"  # Correct answer
+        },
+        {
+            "question": "( ) are needed for special work (like working at height, manual soldering, etc.):",
+            "options": [
+                "A) Qualified by defined technical training and get related certificate",
+                "B) Only safety training is enough",
+                "C) If the worker has enough experience, no need to take a certificate",
+                "D) All of the above are wrong"
+            ],
+            "answer": "A) Qualified by defined technical training and get related certificate"  # Correct answer
+        },
+        {
+            "question": "Anyone who could be affected by the work they are carrying out safely will ensure:",
+            "options": [
+                "A) Inspect their safety equipment and PPE before they use it",
+                "B) Inspect their safety equipment and PPE after they use it",
+                "C) Inspect their safety equipment and PPE during their use",
+                "D) No need to inspect their safety equipment and PPE"
+            ],
+            "answer": "A) Inspect their safety equipment and PPE before they use it"  # Correct answer
+        },
+        {
+            "question": "Lifting a product to height, the product shall be:",
+            "options": [
+                "A) Tied tightly and locked with a safety facility",
+                "B) Tied loosely for easy unjointing",
+                "C) Tied and don’t unlock",
+                "D) All of the above are wrong"
+            ],
+            "answer": "A) Tied tightly and locked with a safety facility"  # Correct answer
+        },
+        {
+            "question": "For working at height, you need an Ended Lanyard:",
+            "options": [
+                "A) One",
+                "B) Two",
+                "C) Zero",
+                "D) More than Two"
+            ],
+            "answer": "B) Two"  # Correct answer
+        },
+        {
+            "question": "When carrying heavy objects by hand, you need to keep your head:",
+            "options": [
+                "A) Looking down on the ground",
+                "B) Looking straight",
+                "C) Looking at the heavy objects",
+                "D) None of the above"
+            ],
+            "answer": "B) Looking straight"  # Correct answer
+        },
+        {
+            "question": "Working in the tower requires a minimum of qualified persons:",
+            "options": [
+                "A) One",
+                "B) Two",
+                "C) Three",
+                "D) Four"
+            ],
+            "answer": "B) Two"  # Correct answer
+        },
+        {
+            "question": "The right answers for working on towers are:",
+            "options": [
+                "A) You can climb a tower alone; there must always be a watchman with you",
+                "B) You check your harness prior to use and wear your safety harness while climbing",
+                "C) Secure yourself with only one lanyard at one point",
+                "D) Can climb a tower when it’s rainy or too windy, if you are a certified person"
+            ],
+            "answer": "B) You check your harness prior to use and wear your safety harness while climbing"  # Correct answer
+        },
+        {
+            "question": "After how long a time of driving must the driver stop the vehicle?",
+            "options": [
+                "A) 2.5 hours",
+                "B) 4 hours",
+                "C) 3 hours",
+                "D) 3.5 hours"
+            ],
+            "answer": "C) 3 hours"  # Correct answer
+        },
+        {
+            "question": "EHS Accident investigations begin:",
+            "options": [
+                "A) The moment an accident occurred",
+                "B) Within 1 day when an accident occurred",
+                "C) Within 3 days when an accident occurred",
+                "D) Within 7 days when an accident occurred"
+            ],
+            "answer": "A) The moment an accident occurred"  # Correct answer
+        },
+        {
+            "question": "After submitting pictures from field engineers, how much time must the approver take to approve the task?",
+            "options": [
+                "A) 20 minutes",
+                "B) 1.5 hours",
+                "C) 30 minutes",
+                "D) 10 minutes"
+            ],
+            "answer": "C) 30 minutes"  # Correct answer
+        },
+        {
+            "question": "All PPE must be fit for ( ) and inspections carried out as per the manufacturer’s instructions and compliant with the local applicable standards. If these are not known, then European EN standards should be used:",
+            "options": [
+                "A) Purpose and maintenance",
+                "B) Checking",
+                "C) Working comfortably",
+                "D) None of the above"
+            ],
+            "answer": "A) Purpose and maintenance"  # Correct answer
+        }
     ]
 }
 # Flatten questions for navigation
 if not st.session_state.flattened_questions:
     flattened_questions = []
 
-    for category, qs in wireless.items():
+    for category, qs in EHS.items():
         for q in qs:
             q['type'] = category  # Set the type for each question
             flattened_questions.append(q)
@@ -225,13 +577,13 @@ if not st.session_state.flattened_questions:
 
     # Combine the questions in the desired order
     all_questions = (
-    true_false_questions[:7] + 
-    single_choice_questions[:8] + 
-    mcq_questions[:5]
+    true_false_questions[:15] + 
+    single_choice_questions[:15] + 
+    mcq_questions[:10]
 )
 
     # Limit to the first 20 questions
-    st.session_state.flattened_questions = all_questions[:20]
+    st.session_state.flattened_questions = all_questions[:40]
 
 # Initialize answers
 if len(st.session_state.answers) != len(st.session_state.flattened_questions):
@@ -301,7 +653,7 @@ else:
                         
                         if question_detail["type"] == "true_false":
                             
-                            score = 4.3
+                            score = 2
                             if user_answer == question_detail["answer"]:
                                 correct_answers += 1
                                 total_score += score
@@ -310,7 +662,7 @@ else:
                                 wrong_answers += 1
                                 result_details.append((question_detail["question"], user_answer, question_detail["answer"], "Wrong"))
                         elif question_detail["type"] == "single_choice":
-                            score = 3.8
+                            score = 2
                             if sorted(user_answer) == sorted(question_detail["answer"]):
                                 correct_answers += 1
                                 total_score += score
@@ -319,7 +671,7 @@ else:
                                 wrong_answers += 1
                                 result_details.append((question_detail["question"], user_answer, question_detail["answer"], "Wrong"))
                         elif question_detail["type"] == "multiple_choice":
-                            score = 8
+                            score = 4
                             if user_answer == question_detail["answer"]:
                                 correct_answers += 1
                                 total_score += score
@@ -372,7 +724,7 @@ else:
     # Display current question if quiz is not submitted
     if not st.session_state.quiz_submitted and st.session_state.current_question < len(st.session_state.flattened_questions):
         current_question = st.session_state.flattened_questions[st.session_state.current_question]
-        total_questions = 20
+        total_questions = 40
         question_number = st.session_state.current_question + 1 
         progress_percentage = question_number / total_questions
         st.write(f"**Question {question_number} of {total_questions}**")  # Question count
