@@ -124,7 +124,7 @@ EHS = {
         {"question": "There is no width requirement for ladders used safely.", "answer": "False"},
         {"question": "Casual shoes, sandals, or slippers are NOT allowed in the worksite.", "answer": "True"}
     ],
-    "choose_correct": [
+    "multiple_choice": [
         {
             "question": "The key tasks for Site Supervisor are:",
             "options": [
@@ -326,7 +326,7 @@ EHS = {
             "answer": ["A", "B", "C", "D"]  # Correct answers
         }
     ],
-    "multiple_choice": [
+    "single_choice": [
         {
             "question": "“E”, “H” & “S” inside of EHS represents the meanings of:",
             "options": [
