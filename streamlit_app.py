@@ -87,13 +87,19 @@ if 'flattened_questions' not in st.session_state:
     st.session_state.flattened_questions = []
 # List of allowed usernames
 allowed_usernames = {
-"Farrukh.Hussain",
-"HIC_ISB_TrainingTeam_01.",
-"HIC_ISB_TrainingTeam_02",
-"HIC_ISB_TrainingTeam_03",
-"HIC_ISB_TrainingTeam_04",
-"HIC_ISB_TrainingTeam_05"
-    
+    "Farrukh.Hussain",
+    "HIC_ISB_TrainingTeam_01.",
+    "HIC_ISB_TrainingTeam_02",
+    "HIC_ISB_TrainingTeam_03",
+    "HIC_ISB_TrainingTeam_04",
+    "HIC_ISB_TrainingTeam_05",
+    "pc_kamran02",
+    "pt_saqibali",
+    "ies_mobeen01",
+    "ies_khalid01",
+    "ies_shoaib01",
+    "ies_hamza01",
+    "tt_bilal01"
 }
 # Define your questions
 EHS = {
